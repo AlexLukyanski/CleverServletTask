@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'war'
+    id "com.bmuschko.tomcat" version "2.7.0"
+    id "io.freefair.lombok" version "6.5.1"
+}
+
+group = 'by.clever'
+version = '1.0-SNAPSHOT'
+
+war {
+    webAppDirectory = file('src/main/webapp')
+    webInf { from 'src/additionalWebInf' }
+    webXml = file('src/main/webapp/WEB-INF/web.xml')
+}
+
+
+java {
+    sourceCompatibility = JavaLanguageVersion.of(17)
+    targetCompatibility = JavaLanguageVersion.of(17)
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+    mockitoVersion = '5.6.0'
+}
+
+dependencies {
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    implementation 'org.postgresql:postgresql:42.5.1'
+    implementation 'org.yaml:snakeyaml:2.1'
+    implementation 'com.itextpdf:itext7-core:7.2.5'
+    compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
+}
+
+tasks.withType(War) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+test {
+    useJUnitPlatform()
+}
