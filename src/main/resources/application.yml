@@ -1,0 +1,3 @@
+algorithm: LRU
+capacity: 15
+create-init-db: true
