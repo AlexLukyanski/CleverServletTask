@@ -5,12 +5,12 @@ import by.clever.servlet.dao.MusicBandDAO;
 import by.clever.servlet.dao.proxy.MusicBandDAOProxy;
 import by.clever.servlet.dto.MusicBandDTO;
 import by.clever.servlet.mapper.MusicBandMapper;
-import by.clever.servlet.mapper.MusicBandMapperImpl;
 import by.clever.servlet.service.MusicBandService;
 import by.clever.servlet.service.exception.ServiceValidationException;
 import by.clever.servlet.entity.MusicBand;
 import by.clever.servlet.service.validation.MusicBandDTOValidation;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +19,16 @@ import java.util.UUID;
 /**
  * Implementation of MusicBandService
  */
-@RequiredArgsConstructor
+@Service
 public class MusicBandServiceImpl implements MusicBandService {
 
     private final MusicBandMapper mapper;
     private final MusicBandDAO musicBandDAO;
 
-    public MusicBandServiceImpl() {
-        this.mapper = new MusicBandMapperImpl();
-        this.musicBandDAO = MusicBandDAOProxy.getInstance();
+    @Autowired
+    public MusicBandServiceImpl(MusicBandMapper mapper, MusicBandDAOProxy musicBandDAOProxy) {
+        this.mapper = mapper;
+        this.musicBandDAO = musicBandDAOProxy.getProxyMusicBandDAO();
     }
 
     /**

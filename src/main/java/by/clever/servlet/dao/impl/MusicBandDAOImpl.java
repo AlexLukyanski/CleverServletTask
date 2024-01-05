@@ -7,6 +7,7 @@ import by.clever.servlet.entity.constant.MusicGenre;
 import by.clever.servlet.dao.connectionpool.ConnectionPool;
 import by.clever.servlet.dao.connectionpool.ConnectionPoolException;
 import by.clever.servlet.dao.constant.DBMusicBandColumnName;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -23,6 +24,7 @@ import java.util.UUID;
 /**
  * Implementation of MusicBandDAO
  */
+@Repository
 public class MusicBandDAOImpl implements MusicBandDAO {
 
     private final static int DEFAULT_PAGE_SIZE = 20;
